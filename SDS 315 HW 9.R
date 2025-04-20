@@ -36,12 +36,9 @@ ggplot(product_numberOfStores, aes(x = number_of_stores, y = Product)) +
   labs(title = "Product vs Number of Stores Selling the Product", x = "Number of Stores", y = "Product") +
   theme_minimal() + theme(plot.title = element_text(hjust = 0.5))
 
-boot_price <- do(10000) * coef(lm(Price ~ Product + Type, data = resample(groceries)))
+lm_price <- lm(Price ~ Product + Type, data = groceries)
 
-#get_regression_table(lm_apt, conf.level = 0.95, digits=2)
-
-confint_price <- confint(boot_price)
-confint_price
+lm_price_table <- get_regression_table(lm_price, conf.level = 0.95, digits=2)
 
 lm(Price ~ Product + Store, data = groceries)
 
